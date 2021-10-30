@@ -8,12 +8,12 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -37,8 +37,8 @@ public class UserController {
             return "redirect:/home";
         }
 
-        if (!model.containsAttribute("isFound")) {
-            model.addAttribute("isFound", true);
+        if (!model.containsAttribute("userFound")) {
+            model.addAttribute("userFound", true);
         }
 
         return "login";
@@ -65,7 +65,7 @@ public class UserController {
         if (user == null) {
             redirectAttributes
                     .addFlashAttribute("userLoginBindingModel", userLoginBindingModel)
-                    .addFlashAttribute("isFound", false);
+                    .addFlashAttribute("userFound", false);
             return "redirect:/users/login";
         }
 
@@ -93,21 +93,24 @@ public class UserController {
     public String registerConfirm(@Valid UserRegisterBindingModel userRegisterBindingModel, BindingResult bindingResult,
                                   RedirectAttributes redirectAttributes) {
 
-        if (bindingResult.hasErrors() ||
-                !userRegisterBindingModel.getPassword().equals(userRegisterBindingModel.getConfirmPassword())) {
-
+        if (bindingResult.hasErrors()) {
             redirectAttributes
                     .addFlashAttribute(
                             "userRegisterBindingModel", userRegisterBindingModel)
                     .addFlashAttribute(
                             "org.springframework.validation.BindingResult.userRegisterBindingModel", bindingResult);
 
-            return "redirect:/register";
+            if (!userRegisterBindingModel.getPassword().equals(userRegisterBindingModel.getConfirmPassword())) {
+                bindingResult.addError(
+                        new FieldError("differentConfirmPassword", "confirmPassword", "Passwords must be the same."));
+            }
+
+            return "redirect:/users/register";
         }
 
         this.userService.register(this.modelMapper.map(userRegisterBindingModel, UserServiceModel.class));
 
-        return "redirect:/login";
+        return "redirect:/users/login";
     }
 
     @ModelAttribute

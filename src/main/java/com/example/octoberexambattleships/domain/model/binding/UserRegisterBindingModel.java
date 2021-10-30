@@ -9,24 +9,24 @@ public class UserRegisterBindingModel {
 
     @UniqueUsername
     @NotNull
-    @Size(min = 3, max = 10, message = "Username length must be between 3 and 10 characters.")
+    @Size(min = 3, max = 10, message = "The username must be between 3 and 10 characters long.")
     private String username;
 
     @NotNull
-    @Size(min = 5, max = 20, message = "Name length must be between 5 and 20 characters.")
+    @Size(min = 5, max = 20, message = "The name must be between 5 and 20 characters long.")
     private String fullName;
 
     @UniqueEmail
-    @NotEmpty(message = "Enter valid email address.")
-    @Email(message = "Enter valid email address.")
+    @NotEmpty(message = "Enter а valid email address.")
+    @Email(message = "Enter а valid email address.")
     private String email;
 
     @NotNull
-    @Size(min = 3, message = "Password length must be more than 3 characters.")
+    @Size(min = 3, message = "Password must be at least 3 characters long.")
     private String password;
 
     @NotNull
-    @Size(min = 3, message = "Password length must be more than 3 characters.")
+    @Size(min = 3, message = "Password must be at least 3 characters long.")
     private String confirmPassword;
 
     public UserRegisterBindingModel(){}

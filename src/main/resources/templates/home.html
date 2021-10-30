@@ -17,7 +17,8 @@
                             Select the attacker
                         </h3>
                         <div class="mb-1 text-white">Select one of the ships that are owned by the current user</div>
-                        <select th:field="*{attackerShipId}" class="form-select mt-5" aria-label="Default select example">
+                        <select th:field="*{attackerShipId}" class="form-select mt-5"
+                                aria-label="Default select example">
                             <option value="" selected>Select one of the ships that are owned by the current user
                             </option>
                             <option th:each="s : ${attackerShips}" th:value="${s.id}" th:text="${s.name}"></option>
@@ -38,7 +39,8 @@
                         </h3>
                         <div class="mb-1 text-white">Select one of the ships that are owned by other users
                         </div>
-                        <select th:field="*{defenderShipId}" class="form-select mt-5" aria-label="Default select example">
+                        <select th:field="*{defenderShipId}" class="form-select mt-5"
+                                aria-label="Default select example">
                             <option value="" selected>Select one of the ships that are owned by other users
                             </option>
                             <option th:each="s : ${defenderShips}" th:value="${s.id}" th:text="${s.name}"></option>

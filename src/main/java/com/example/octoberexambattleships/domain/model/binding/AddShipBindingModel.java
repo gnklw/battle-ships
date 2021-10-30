@@ -11,23 +11,23 @@ public class AddShipBindingModel {
 
     @UniqueShipName
     @NotNull
-    @Size(min = 2, max = 10, message = "Name must be between 2 and 10 characters.")
+    @Size(min = 2, max = 10, message = "The name must be between 2 and 10 characters long.")
     private String name;
 
-    @NotNull(message = "Power cannot be empty")
-    @Positive(message = "The power must be positive.")
+    @NotNull(message = "The power cannot be empty, please enter a valid value.")
+    @Positive(message = "Power must be a positive value.")
     private Integer power;
 
-    @NotNull(message = "Health cannot be empty")
-    @Positive(message = "The health must be positive.")
+    @NotNull(message = "The health cannot be empty, please enter a valid value.")
+    @Positive(message = "Health must be a positive value.")
     private Integer health;
 
-    @NotNull(message = "Date cannot be empty")
-    @PastOrPresent(message = "WTF")
+    @NotNull(message = "The field cannot be empty, please enter a valid date.")
+    @PastOrPresent(message = "The date and time cannot be in the future.")
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDateTime created;
 
-    @NotNull(message = "You must select the category.")
+    @NotNull(message = "You must specify a category.")
     private Categories category;
 
     public AddShipBindingModel(){}
